@@ -1,40 +1,36 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
-import { Box, Container, TextField, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import OngsTable from "./components/ongs-table";
 
 export default function OngsPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  
+  const [page, setPage] = useState(1);
+  // const rowsPerPage = 50;
+  // const totalPages = data?.pages ?? 1;
+
+  // const totalItems = data?.count ?? 0;
+  const ongs = []; // Replace with actual data fetching logic
+
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ py: 2, minHeight: "100vh", position: "relative", mb: 2 }}
-    >
-      <Box mb={8}>
-        <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
-          Meus Eventos
+    <Box sx={{ backgroundColor: "#F9F9F9", margin: "24px", padding: "24px", paddingTop: "0px", marginTop: "12px", borderRadius: 2 }}>
+      <Box
+        sx={{
+          pt: "8px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography style={{ fontSize: "32px", fontWeight: "700" }}>
+          Gerenciar Ongs
         </Typography>
-        <Typography color="text.common.black" mb={3}>
-          Gerencie seus eventos e candidatos
-        </Typography>
-        <Box maxWidth={400}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Buscar eventos..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <Box sx={{ mr: 1, display: "flex", alignItems: "center" }}>
-                  <Search size={20} style={{ color: "#9ca3af" }} />
-                </Box>
-              ),
-            }}
-            size="small"
-          />
-        </Box>
       </Box>
-    </Container>
+
+      <OngsTable
+        data={ongs}
+        page={page}
+        setPage={setPage}
+        totalPages={1}
+        totalItems={0}      />
+    </Box>
   );
 }
