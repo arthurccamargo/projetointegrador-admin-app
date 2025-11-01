@@ -8,7 +8,7 @@ export default function OngsPage() {
   // const totalPages = data?.pages ?? 1;
 
   // const totalItems = data?.count ?? 0;
-  const ongs = []; // Replace with actual data fetching logic
+  const ongs = [];
 
   return (
     <Box sx={{ backgroundColor: "#F9F9F9", margin: "24px", padding: "24px", paddingTop: "0px", marginTop: "12px", borderRadius: 2 }}>
