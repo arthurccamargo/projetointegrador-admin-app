@@ -42,7 +42,7 @@ export interface OngProfile {
 export interface User {
   id: string;
   email: string;
-  role: "VOLUNTEER" | "ONG";
+  role: "ADMIN";
   status: "ACTIVE" | "PENDING";
   createdAt: string;
   updatedAt: string;

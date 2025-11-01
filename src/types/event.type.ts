@@ -1,5 +1,5 @@
 import type { OngProfile } from "../app/auth/auth.type";
-import type { Category } from "./categorys.type";
+import type { Category } from "./category.type";
 
 export interface Event {
   id: string;

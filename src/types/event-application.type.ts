@@ -1,4 +1,4 @@
-import type { Event } from "./events.type";
+import type { Event } from "./event.type";
 
 export enum ApplicationStatus {
   PENDING = "PENDING",
