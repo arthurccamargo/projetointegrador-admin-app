@@ -4,6 +4,7 @@ import navigationSlice from './navigationSlice';
 import { categoryApi } from '../app/api/CategoryApi'; // adicione o import
 import { eventApi } from '../app/api/EventApi';
 import { eventApplicationApi } from '../app/api/EventApplicationApi';
+import { adminApi } from '../app/api/AdminApi';
 
 
 export type LazyLoadedSlices = object
@@ -24,6 +25,7 @@ export const rootReducer = combineSlices(
 		[categoryApi.reducerPath]: categoryApi.reducer,
 		[eventApi.reducerPath]: eventApi.reducer,
 		[eventApplicationApi.reducerPath]: eventApplicationApi.reducer,
+		[adminApi.reducerPath]: adminApi.reducer,
 	}
 ).withLazyLoadedSlices<LazyLoadedSlices>();
 
