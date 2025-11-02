@@ -9,13 +9,17 @@ import {
   Box,
   Typography,
   TableFooter,
+  Tooltip,
+  FormControlLabel,
 } from "@mui/material";
 import { CustomPagination } from "../../../../shared-components/CustomPagination";
 import type { Volunteer } from "../../../../../types/volunteer.type";
 import { getUserStatus } from "../../../../shared-components/functions/getUserStatus";
+import { IOSSwitch } from "../../../../shared-components/SwitchOnOff";
 
 interface VolunteersTableProps {
   data: Volunteer[];
+  onRequestStatusUser: (user: Volunteer, action: "ACTIVE" | "BLOCKED") => void;
   page: number;
   setPage: (page: number) => void;
   totalPages: number;
@@ -24,6 +28,7 @@ interface VolunteersTableProps {
 
 export default function VolunteersTable({
   data,
+  onRequestStatusUser,
   page,
   setPage,
   totalPages,
@@ -34,6 +39,11 @@ export default function VolunteersTable({
     (page - 1) * rowsPerPage,
     page * rowsPerPage
   );
+
+  const handleToggleStatus = (volunteer: Volunteer) => {
+    const newStatus = volunteer.status === "ACTIVE" ? "BLOCKED" : "ACTIVE";
+    onRequestStatusUser(volunteer, newStatus);
+  };
 
   return (
     <TableContainer
@@ -167,6 +177,8 @@ export default function VolunteersTable({
             </TableRow>
           ) : (
             paginatedRows.map((row, index) => {
+              const isActive = row.status === "ACTIVE";
+
               return (
                 <TableRow
                   key={row.id}
@@ -183,7 +195,21 @@ export default function VolunteersTable({
                         alignItems: "center",
                         gap: 1,
                       }}
-                    ></Box>
+                    >
+                      <Tooltip title={isActive ? "Bloquear Voluntário" : "Ativar Voluntário"}>
+                        <FormControlLabel
+                          control={
+                            <IOSSwitch
+                              sx={{ m: 0 }}
+                              checked={isActive}
+                              onChange={() => handleToggleStatus(row)}
+                            />
+                          }
+                          label=""
+                          sx={{ margin: 0, gap: 1 }}
+                        />
+                      </Tooltip>
+                    </Box>
                   </TableCell>
                   <TableCell component="th" scope="row" align="center">
                     {(() => {
