@@ -27,7 +27,18 @@ export const adminApi = createApi({
         method: "GET",
       }),
     }),
+    updateUserStatus: builder.mutation<any, { id: string; status: any }>({
+      query: ({ id, status }) => ({
+        url: `/admin/${id}/status`,
+        method: "PATCH",
+        body: { status },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllOngsQuery, useGetAllVolunteersQuery } = adminApi;
+export const {
+  useGetAllOngsQuery,
+  useGetAllVolunteersQuery,
+  useUpdateUserStatusMutation,
+} = adminApi;
