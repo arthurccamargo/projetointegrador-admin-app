@@ -32,7 +32,7 @@ export const adminApi = createApi({
     }),
     updateUserStatus: builder.mutation<any, { id: string; status: "ACTIVE" | "BLOCKED" }>({
       query: ({ id, status }) => ({
-        url: `/admin/${id}/status`,
+        url: `/admin/users/${id}/status`,
         method: "PATCH",
         body: { status },
       }),

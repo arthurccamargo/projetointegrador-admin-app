@@ -21,6 +21,7 @@ import { IOSSwitch } from "../../../../shared-components/SwitchOnOff";
 
 interface OngsTableProps {
   data: Ong[];
+  onRequestStatusUser: (user: Ong, action: "ACTIVE" | "BLOCKED") => void;
   page: number;
   setPage: (page: number) => void;
   totalPages: number;
@@ -29,6 +30,7 @@ interface OngsTableProps {
 
 export default function OngsTable({
   data,
+  onRequestStatusUser,
   page,
   setPage,
   totalPages,
@@ -41,18 +43,18 @@ export default function OngsTable({
   );
 
   const handleApproveOng = (ong: Ong) => {
-    // TODO: Implementar lógica para aprovar ONG (mudar status para ACTIVE)
+    onRequestStatusUser(ong, "ACTIVE");
     console.log("Aprovar ONG:", ong);
   };
 
   const handleRejectOng = (ong: Ong) => {
-    // TODO: Implementar lógica para rejeitar ONG (mudar status para BLOCKED)
+    onRequestStatusUser(ong, "BLOCKED");
     console.log("Rejeitar ONG:", ong);
   };
 
   const handleToggleStatus = (ong: Ong) => {
-    // TODO: Implementar lógica para alternar entre ACTIVE e BLOCKED
-    console.log("Alternar status da ONG:", ong);
+    const newStatus = ong.status === "ACTIVE" ? "BLOCKED" : "ACTIVE";
+    onRequestStatusUser(ong, newStatus);
   };
 
   return (
@@ -189,7 +191,7 @@ export default function OngsTable({
             paginatedRows.map((row, index) => {
               const isPending = row.status === "PENDING";
               const isActive = row.status === "ACTIVE";
-              
+
               return (
                 <TableRow
                   key={row.id}
@@ -199,7 +201,14 @@ export default function OngsTable({
                   }}
                 >
                   <TableCell align="center">
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 1,
+                      }}
+                    >
                       {isPending ? (
                         <>
                           <Tooltip title="Aprovar ONG">
@@ -207,7 +216,7 @@ export default function OngsTable({
                               onClick={() => handleApproveOng(row)}
                               sx={{
                                 color: "#10B981",
-                                '&:hover': { backgroundColor: "#10B98115" }
+                                "&:hover": { backgroundColor: "#10B98115" },
                               }}
                               size="small"
                             >
@@ -219,7 +228,7 @@ export default function OngsTable({
                               onClick={() => handleRejectOng(row)}
                               sx={{
                                 color: "#EF4444",
-                                '&:hover': { backgroundColor: "#EF444415" }
+                                "&:hover": { backgroundColor: "#EF444415" },
                               }}
                               size="small"
                             >
@@ -228,7 +237,9 @@ export default function OngsTable({
                           </Tooltip>
                         </>
                       ) : (
-                        <Tooltip title={isActive ? 'Bloquear ONG' : 'Ativar ONG'}>
+                        <Tooltip
+                          title={isActive ? "Bloquear ONG" : "Ativar ONG"}
+                        >
                           <FormControlLabel
                             control={
                               <IOSSwitch
