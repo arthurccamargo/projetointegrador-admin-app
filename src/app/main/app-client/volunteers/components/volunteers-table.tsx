@@ -99,7 +99,7 @@ export default function VolunteersTable({
             </TableCell>
             <TableCell align="center">
               <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                Descrição
+                Telefone
               </Typography>
             </TableCell>
           </TableRow>
