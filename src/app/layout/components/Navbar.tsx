@@ -7,7 +7,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import { Home, UsersIcon } from "lucide-react";
+import { Building2, UsersIcon } from "lucide-react";
 
 type NavbarProps = {
   drawerWidth: number;
@@ -59,7 +59,7 @@ const Navbar: React.FC<NavbarProps> = ({ drawerWidth }) => {
           <List>
             <ListItem disablePadding>
               <ListItemButton onClick={() => navigate("/ongs")}>
-                <Home size={24} style={{ marginRight: 16 }} />
+                <Building2 size={24} style={{ marginRight: 16 }} />
                 <ListItemText
                   primary="Ongs"
                   sx={{ color: theme.palette.text.secondary }}
