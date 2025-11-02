@@ -14,25 +14,29 @@ export const adminApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Ongs", "Volunteers"],
   endpoints: (builder) => ({
     getAllOngs: builder.query<any, void>({
       query: () => ({
         url: "/admin/ongs",
         method: "GET",
       }),
+      providesTags: ["Ongs"],
     }),
     getAllVolunteers: builder.query<any, void>({
       query: () => ({
         url: "/admin/volunteers",
         method: "GET",
       }),
+      providesTags: ["Volunteers"],
     }),
-    updateUserStatus: builder.mutation<any, { id: string; status: any }>({
+    updateUserStatus: builder.mutation<any, { id: string; status: "ACTIVE" | "BLOCKED" }>({
       query: ({ id, status }) => ({
         url: `/admin/${id}/status`,
         method: "PATCH",
         body: { status },
       }),
+      invalidatesTags: ["Ongs", "Volunteers"],
     }),
   }),
 });
