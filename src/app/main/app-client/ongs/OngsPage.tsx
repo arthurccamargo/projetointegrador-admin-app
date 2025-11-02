@@ -16,6 +16,7 @@ export default function OngsPage() {
     email: u.email || "",
     cnpj: u.ongProfile.cnpj || "",
     description: u.ongProfile.description || "",
+    status: u.status || "",
   }));
 
   return (
