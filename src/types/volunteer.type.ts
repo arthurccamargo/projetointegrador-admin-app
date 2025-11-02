@@ -15,6 +15,7 @@ export interface Volunteer {
   city?: string;
   state?: string;
   experiences?: string | null;
+  status?: string;
 }
 
 export type SortKey = 'name' | 'email';

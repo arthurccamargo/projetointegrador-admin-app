@@ -17,6 +17,7 @@ export default function VolunteersPage() {
     email: u.email || "",
     phone: u.volunteerProfile.phone || "",
     cpf: u.volunteerProfile.cpf || "",
+    status: u.status || "",
   }));
 
   return (
