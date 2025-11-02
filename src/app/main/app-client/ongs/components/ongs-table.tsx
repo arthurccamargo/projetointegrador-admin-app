@@ -9,10 +9,15 @@ import {
   Box,
   Typography,
   TableFooter,
+  Tooltip,
+  FormControlLabel,
+  IconButton,
 } from "@mui/material";
+import { Check, X } from "lucide-react";
 import { getUserStatus } from "../../../../shared-components/functions/getUserStatus";
 import type { Ong } from "../../../../../types/ong.type";
 import { CustomPagination } from "../../../../shared-components/CustomPagination";
+import { IOSSwitch } from "../../../../shared-components/SwitchOnOff";
 
 interface OngsTableProps {
   data: Ong[];
@@ -34,6 +39,21 @@ export default function OngsTable({
     (page - 1) * rowsPerPage,
     page * rowsPerPage
   );
+
+  const handleApproveOng = (ong: Ong) => {
+    // TODO: Implementar lógica para aprovar ONG (mudar status para ACTIVE)
+    console.log("Aprovar ONG:", ong);
+  };
+
+  const handleRejectOng = (ong: Ong) => {
+    // TODO: Implementar lógica para rejeitar ONG (mudar status para BLOCKED)
+    console.log("Rejeitar ONG:", ong);
+  };
+
+  const handleToggleStatus = (ong: Ong) => {
+    // TODO: Implementar lógica para alternar entre ACTIVE e BLOCKED
+    console.log("Alternar status da ONG:", ong);
+  };
 
   return (
     <TableContainer
@@ -167,6 +187,9 @@ export default function OngsTable({
             </TableRow>
           ) : (
             paginatedRows.map((row, index) => {
+              const isPending = row.status === "PENDING";
+              const isActive = row.status === "ACTIVE";
+              
               return (
                 <TableRow
                   key={row.id}
@@ -176,14 +199,50 @@ export default function OngsTable({
                   }}
                 >
                   <TableCell align="center">
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: 1,
-                      }}
-                    ></Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+                      {isPending ? (
+                        <>
+                          <Tooltip title="Aprovar ONG">
+                            <IconButton
+                              onClick={() => handleApproveOng(row)}
+                              sx={{
+                                color: "#10B981",
+                                '&:hover': { backgroundColor: "#10B98115" }
+                              }}
+                              size="small"
+                            >
+                              <Check size={20} />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Rejeitar ONG">
+                            <IconButton
+                              onClick={() => handleRejectOng(row)}
+                              sx={{
+                                color: "#EF4444",
+                                '&:hover': { backgroundColor: "#EF444415" }
+                              }}
+                              size="small"
+                            >
+                              <X size={20} />
+                            </IconButton>
+                          </Tooltip>
+                        </>
+                      ) : (
+                        <Tooltip title={isActive ? 'Bloquear ONG' : 'Ativar ONG'}>
+                          <FormControlLabel
+                            control={
+                              <IOSSwitch
+                                sx={{ m: 0 }}
+                                checked={isActive}
+                                onChange={() => handleToggleStatus(row)}
+                              />
+                            }
+                            label=""
+                            sx={{ margin: 0, gap: 1 }}
+                          />
+                        </Tooltip>
+                      )}
+                    </Box>
                   </TableCell>
                   <TableCell component="th" scope="row" align="center">
                     {(() => {
